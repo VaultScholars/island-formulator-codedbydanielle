@@ -1,0 +1,100 @@
+<%= form_with(model: ingredient, class: "space-y-6") do |form| %>
+  <% if ingredient.errors.any? %>
+    <div id="error_explanation"
+         class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-900">
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 h-2.5 w-2.5 rounded-full bg-rose-500"></div>
+        <div>
+          <h2 class="font-semibold">
+            <%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:
+          </h2>
+          <ul class="mt-2 list-disc pl-5 text-sm text-rose-800">
+            <% ingredient.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="rounded-2xl border border-amber-100 bg-rose-50/40 p-6 shadow-sm">
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Name -->
+      <div>
+        <%= form.label :name, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.text_field :name,
+          placeholder: "e.g., Jojoba Oil",
+          class: [
+            "mt-2 block w-full rounded-md border bg-white/80 px-3 py-2 shadow-sm",
+            "placeholder:text-stone-400",
+            "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
+            ingredient.errors[:name].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
+          ] %>
+        <p class="mt-2 text-xs text-stone-600">
+          Keep it short and recognizable.
+        </p>
+      </div>
+
+      <!-- Category -->
+      <div>
+        <%= form.label :category, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.text_field :category,
+          placeholder: "Oil, Butter, Essential Oil, Humectant…",
+          class: [
+            "mt-2 block w-full rounded-md border bg-white/80 px-3 py-2 shadow-sm",
+            "placeholder:text-stone-400",
+            "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
+            ingredient.errors[:category].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
+          ] %>
+        <p class="mt-2 text-xs text-stone-600">
+          Helps you filter and keep the shelf organized.
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <%= form.label :description, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.textarea :description,
+          rows: 4,
+          placeholder: "What is it? How is it used? Any benefits…",
+          class: [
+            "mt-2 block w-full rounded-md border bg-white/80 px-3 py-2 shadow-sm",
+            "placeholder:text-stone-400",
+            "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
+            ingredient.errors[:description].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
+          ] %>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <%= form.label :notes, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.textarea :notes,
+          rows: 4,
+          placeholder: "Personal notes: supplier, scent strength, dilution reminders…",
+          class: [
+            "mt-2 block w-full rounded-md border bg-white/80 px-3 py-2 shadow-sm",
+            "placeholder:text-stone-400",
+            "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
+            ingredient.errors[:notes].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
+          ] %>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-xs text-stone-600">
+        Tip: Use consistent categories (e.g., “Oil” vs “Carrier Oil”) for clean filtering later.
+      </p>
+
+      <div class="flex gap-3">
+        <%= link_to "Cancel", ingredients_path,
+          class: "inline-flex items-center justify-center rounded-md border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:bg-amber-50" %>
+
+        <%= form.submit(
+          ingredient.persisted? ? "Update Ingredient" : "Create Ingredient",
+          class: "inline-flex items-center justify-center rounded-md bg-emerald-900 px-5 py-2 text-sm font-semibold text-rose-50 shadow-sm hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-700/40"
+        ) %>
+      </div>
+    </div>
+  </div>
+<% end %>
