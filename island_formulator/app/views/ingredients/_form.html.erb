@@ -31,9 +31,7 @@
             "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
             ingredient.errors[:name].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
           ] %>
-        <p class="mt-2 text-xs text-stone-600">
-          Keep it short and recognizable.
-        </p>
+        <p class="mt-2 text-xs text-stone-600">Keep it short and recognizable.</p>
       </div>
 
       <!-- Category -->
@@ -47,9 +45,7 @@
             "focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700",
             ingredient.errors[:category].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
           ] %>
-        <p class="mt-2 text-xs text-stone-600">
-          Helps you filter and keep the shelf organized.
-        </p>
+        <p class="mt-2 text-xs text-stone-600">Helps you filter and keep the shelf organized.</p>
       </div>
 
       <!-- Description -->
@@ -79,8 +75,26 @@
             ingredient.errors[:notes].any? ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/30" : "border-amber-100"
           ] %>
       </div>
+
+      <!-- Tags  -->
+      <div class="pt-2">
+        <%= form.label :tag_ids, "Benefits & Properties",
+          class: "block text-sm font-semibold text-emerald-950 mb-2" %>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <%= form.collection_check_boxes :tag_ids, Tag.order(:name), :id, :name do |cb| %>
+            <label class="flex items-center gap-2 rounded-xl border border-amber-200 bg-white/80 px-3 py-3 shadow-sm hover:border-emerald-300 hover:bg-emerald-50 transition">
+              <%= cb.check_box class: "h-4 w-4 rounded border-gray-300 text-emerald-700 focus:ring-emerald-600" %>
+              <span class="text-sm font-medium text-gray-800 leading-tight break-words">
+                <%= cb.text %>
+              </span>
+            </label>
+          <% end %>
+        </div>
+      </div>
     </div>
 
+    <!-- Footer row: tip + buttons -->
     <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-xs text-stone-600">
         Tip: Use consistent categories (e.g., “Oil” vs “Carrier Oil”) for clean filtering later.

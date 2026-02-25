@@ -3,7 +3,7 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients or /ingredients.json
   def index
-    @ingredients = Ingredient.all
+    @ingredients = Current.user.ingredients
   end
 
   # GET /ingredients/1 or /ingredients/1.json
@@ -21,7 +21,7 @@ class IngredientsController < ApplicationController
 
   # POST /ingredients or /ingredients.json
   def create
-    @ingredient = Ingredient.new(ingredient_params)
+    @ingredient = Current.user.ingredients.new(ingredient_params)
 
     respond_to do |format|
       if @ingredient.save
@@ -60,11 +60,11 @@ class IngredientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ingredient
-      @ingredient = Ingredient.find(params.expect(:id))
+  @ingredient = Current.user.ingredients.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def ingredient_params
-      params.expect(ingredient: [ :name, :category, :description, :notes ])
+  params.require(:ingredient).permit(:name, :category, :description, :notes, tag_ids: [])
     end
 end
