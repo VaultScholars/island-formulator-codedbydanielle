@@ -28,15 +28,16 @@
   <nav class="mb-8 px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-8">
-        <%= link_to root_path, class: "text-xl font-bold text-gray-900 hover:text-emerald-700 transition-colors" do %>
-          Island Formulator
-        <% end %>
+        <div class="flex items-center gap-8">
+  <%= link_to root_path, class: "text-xl font-bold text-emerald-900 hover:text-emerald-700 transition-colors" do %>
+    Ingredient Knowledge Base
+  <% end %>
 
-        <% if authenticated? %>
-          <%= link_to "My Ingredients", ingredients_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
-        <% end %>
-      </div>
-
+  <% if authenticated? %>
+    <%= link_to "My Recipes", recipes_path, class: "px-3 py-1.5 rounded-md font-medium transition-colors duration-200 #{current_page?(recipes_path) ? 'bg-emerald-800 text-white' : 'text-emerald-900 hover:bg-emerald-50'}" %>
+    <%= link_to "My Ingredients", ingredients_path, class: "px-3 py-1.5 rounded-md font-medium transition-colors duration-200 #{current_page?(ingredients_path) ? 'bg-emerald-800 text-white' : 'text-emerald-900 hover:bg-emerald-50'}" %>
+  <% end %>
+</div>
       <div class="flex items-center gap-4">
         <% if authenticated? %>
           <span class="text-sm text-gray-500"><%= Current.user.email_address %></span>

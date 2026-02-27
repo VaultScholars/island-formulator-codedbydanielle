@@ -1,0 +1,25 @@
+<div class="flex justify-between items-center mb-10">
+  <h1 class="font-bold text-4xl">Recipes</h1>
+  <%= link_to "New Recipe", new_recipe_path,
+    class: "bg-emerald-900 hover:bg-emerald-800 text-rose-50 font-bold py-3 px-6 rounded-lg shadow-md transition duration-200" %>
+</div>
+
+<div id="recipes" class="min-w-full divide-y divide-gray-200">
+  <% if @recipes.any? %>
+    <% @recipes.each do |recipe| %>
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between py-6">
+        <%= render recipe %>
+
+        <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
+          <%= link_to "Show", recipe, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+          <%= link_to "Edit", edit_recipe_path(recipe), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+          <%= button_to "Destroy", recipe, method: :delete,
+            class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer",
+            data: { turbo_confirm: "Are you sure?" } %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center my-10">No recipes found.</p>
+  <% end %>
+</div>

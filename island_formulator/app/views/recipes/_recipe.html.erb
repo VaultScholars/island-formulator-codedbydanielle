@@ -1,0 +1,33 @@
+<div id="<%= dom_id recipe %>" class="w-full">
+  <div class="rounded-2xl border border-amber-100 bg-rose-50/40 p-5 shadow-sm">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-extrabold text-emerald-950">
+          <%= recipe.title.presence || "Untitled Recipe" %>
+        </h2>
+
+        <% if recipe.product_type.present? %>
+          <span class="mt-2 inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold tracking-wide text-emerald-900 uppercase">
+            <%= recipe.product_type %>
+          </span>
+        <% end %>
+
+        <p class="mt-3 text-sm text-stone-700">
+          <span class="font-semibold text-emerald-950">Ingredients:</span>
+          <%= pluralize(recipe.recipe_ingredients.size, "item") %>
+        </p>
+      </div>
+
+      <div class="text-xs text-stone-500">
+        #<%= recipe.id %>
+      </div>
+    </div>
+
+    <% if recipe.method.present? %>
+      <p class="mt-4 text-sm text-stone-700 line-clamp-2">
+        <span class="font-semibold text-emerald-950">Method:</span>
+        <%= recipe.method %>
+      </p>
+    <% end %>
+  </div>
+</div>
