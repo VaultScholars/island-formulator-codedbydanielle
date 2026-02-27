@@ -1,6 +1,8 @@
 class Ingredient < ApplicationRecord
   belongs_to :user
 
+  has_one_attached :photo
+
   has_many :ingredient_tags, dependent: :destroy
   has_many :tags, through: :ingredient_tags
 

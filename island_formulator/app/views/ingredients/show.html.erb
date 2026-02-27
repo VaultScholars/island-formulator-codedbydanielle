@@ -1,15 +1,61 @@
 <% content_for :title, "Showing ingredient" %>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<div class="mx-auto w-full max-w-3xl px-5 py-10">
+  <div class="rounded-2xl border border-amber-100 bg-white shadow-sm overflow-hidden">
 
-  <h1 class="font-bold text-4xl">Showing ingredient</h1>
+    <% if @ingredient.photo.attached? %>
+      <%= image_tag @ingredient.photo,
+        class: "w-full h-72 object-cover" %>
+    <% else %>
+      <div class="w-full h-72 bg-rose-50/60 flex items-center justify-center text-stone-400 text-sm">
+        No photo uploaded
+      </div>
+    <% end %>
 
-  <%= render @ingredient %>
+    <div class="p-8">
+      <!-- Header -->
+      <h1 class="text-4xl font-extrabold text-emerald-950 mb-3">
+        <%= @ingredient.name %>
+      </h1>
 
-  <%= link_to "Edit this ingredient", edit_ingredient_path(@ingredient), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to ingredients", ingredients_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this ingredient", @ingredient, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+      <span class="inline-block bg-emerald-100 text-emerald-900 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide border border-emerald-200">
+        <%= @ingredient.category %>
+      </span>
+
+      <!-- Description -->
+      <div class="mt-8">
+        <h2 class="text-xs font-semibold tracking-wide text-emerald-900/70 uppercase mb-3">
+          Description
+        </h2>
+
+        <p class="text-stone-700 leading-relaxed">
+          <%= @ingredient.description.presence || "No description added yet." %>
+        </p>
+      </div>
+
+      <!-- Notes (optional but fits your system nicely) -->
+      <% if @ingredient.notes.present? %>
+        <div class="mt-8">
+          <h2 class="text-xs font-semibold tracking-wide text-emerald-900/70 uppercase mb-3">
+            Notes
+          </h2>
+
+          <p class="text-stone-700 leading-relaxed">
+            <%= @ingredient.notes %>
+          </p>
+        </div>
+      <% end %>
+
+    <!-- Actions -->
+      <div class="mt-10 pt-6 border-t border-amber-100 flex items-center justify-between">
+        <%= link_to "Back",
+          ingredients_path,
+          class: "inline-flex items-center justify-center rounded-md border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:bg-amber-50 transition" %>
+
+        <%= link_to "Edit Ingredient",
+          edit_ingredient_path(@ingredient),
+          class: "inline-flex items-center justify-center rounded-md bg-emerald-900 px-5 py-2 text-sm font-semibold text-rose-50 shadow-sm hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-700/40 transition" %>
+      </div>
+    </div>
+  </div>
 </div>

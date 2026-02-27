@@ -1,25 +1,67 @@
-<div class="flex justify-between items-center mb-10">
-  <h1 class="font-bold text-4xl">Recipes</h1>
-  <%= link_to "New Recipe", new_recipe_path,
-    class: "bg-emerald-900 hover:bg-emerald-800 text-rose-50 font-bold py-3 px-6 rounded-lg shadow-md transition duration-200" %>
-</div>
+<% content_for :title, "My Recipes" %>
 
-<div id="recipes" class="min-w-full divide-y divide-gray-200">
-  <% if @recipes.any? %>
-    <% @recipes.each do |recipe| %>
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between py-6">
-        <%= render recipe %>
+<div class="mx-auto w-full max-w-6xl px-5 py-10">
+  <div class="mb-8 flex items-start justify-between gap-4">
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-emerald-900/80 uppercase">
+        Recipe Builder
+      </p>
+      <h1 class="mt-2 text-4xl font-extrabold text-emerald-950">
+        My Recipes
+      </h1>
+      <p class="mt-2 text-sm text-stone-600">
+        Document your formulas, link ingredients, and keep your methods repeatable.
+      </p>
+    </div>
 
-        <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
-          <%= link_to "Show", recipe, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-          <%= link_to "Edit", edit_recipe_path(recipe), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-          <%= button_to "Destroy", recipe, method: :delete,
-            class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer",
-            data: { turbo_confirm: "Are you sure?" } %>
-        </div>
-      </div>
-    <% end %>
+    <%= link_to "New Recipe", new_recipe_path,
+      class: "bg-emerald-900 hover:bg-emerald-800 text-rose-50 font-bold py-3 px-6 rounded-lg shadow-md transition duration-200" %>
+  </div>
+
+  <% if @recipes.empty? %>
+    <div class="rounded-2xl border border-amber-100 bg-rose-50/40 p-10 text-center shadow-sm">
+      <p class="text-stone-600 mb-4">You haven’t created any recipes yet.</p>
+
+      <%= link_to "Create Your First Recipe", new_recipe_path,
+        class: "inline-flex items-center justify-center rounded-md border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-amber-50 transition" %>
+    </div>
   <% else %>
-    <p class="text-center my-10">No recipes found.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @recipes.each do |recipe| %>
+        <div class="rounded-2xl border border-amber-100 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+          <% if recipe.photo.attached? %>
+            <%= image_tag recipe.photo, class: "w-full h-48 object-cover" %>
+          <% else %>
+            <div class="w-full h-48 bg-rose-50/60 flex items-center justify-center text-stone-400">
+              No photo
+            </div>
+          <% end %>
+
+          <div class="p-5">
+            <h2 class="text-xl font-extrabold mb-2">
+              <%= link_to recipe.title, recipe, class: "text-emerald-950 hover:text-emerald-800 transition-colors" %>
+            </h2>
+
+            <span class="inline-block bg-emerald-100 text-emerald-900 text-xs px-2.5 py-1 rounded-full font-semibold uppercase tracking-wide border border-emerald-200">
+              <%= recipe.product_type %>
+            </span>
+
+            <p class="text-stone-600 text-sm mt-3">
+              <span class="font-semibold text-emerald-950">Ingredients:</span>
+              <%= pluralize(recipe.ingredients.count, "item") %>
+            </p>
+
+            <div class="mt-4 pt-4 border-t border-amber-100 flex items-center justify-between">
+              <%= link_to "View Details", recipe,
+                class: "text-emerald-800 font-semibold hover:text-emerald-950 transition-colors" %>
+
+              <span class="text-xs text-stone-400">
+                #<%= recipe.id %>
+              </span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
