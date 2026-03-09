@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "dashboards/show"
   resources :batches
   resources :inventory_items
   resources :recipes
@@ -12,5 +13,5 @@ Rails.application.routes.draw do
   resources :inventory_items
   resources :batches, only: [:index, :show, :new, :create, :destroy]
 
-  root "ingredients#index"
+  root "dashboards#show"
 end

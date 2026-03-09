@@ -34,8 +34,11 @@
   <% end %>
 
   <% if authenticated? %>
-    <%= link_to "My Recipes", recipes_path, class: "px-3 py-1.5 rounded-md font-medium transition-colors duration-200 #{current_page?(recipes_path) ? 'bg-emerald-800 text-white' : 'text-emerald-900 hover:bg-emerald-50'}" %>
-    <%= link_to "My Ingredients", ingredients_path, class: "px-3 py-1.5 rounded-md font-medium transition-colors duration-200 #{current_page?(ingredients_path) ? 'bg-emerald-800 text-white' : 'text-emerald-900 hover:bg-emerald-50'}" %>
+    <%= link_to "Dashboard", root_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
+    <%= link_to "My Recipes", recipes_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
+    <%= link_to "Inventory", inventory_items_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
+    <%= link_to "Batches", batches_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
+    <%= link_to "My Ingredients", ingredients_path, class: "text-gray-600 hover:text-gray-900 transition-colors" %>
   <% end %>
 </div>
       <div class="flex items-center gap-4">
