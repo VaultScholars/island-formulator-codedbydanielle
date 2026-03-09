@@ -4,7 +4,8 @@ class User < ApplicationRecord
   has_many :ingredients, dependent: :destroy
   has_many :ingredients, dependent: :destroy
   has_many :recipes, dependent: :destroy
-  
+  has_many :inventory_items, dependent: :destroy
+
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 8 }, confirmation: true
 end
