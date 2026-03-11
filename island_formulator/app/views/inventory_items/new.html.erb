@@ -1,7 +1,23 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New Inventory Item</h1>
+<% content_for :title, "New Inventory Item" %>
+
+<div class="mx-auto w-full max-w-3xl px-5 py-10">
+  <div class="mb-8 flex items-start justify-between gap-4">
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-emerald-900/80 uppercase">
+        Inventory Tracking
+      </p>
+      <h1 class="mt-2 text-4xl font-extrabold text-emerald-950">
+        Add a New Inventory Item
+      </h1>
+      <p class="mt-2 text-sm text-stone-600">
+        Record the details of a purchase—ingredient, brand, size, storage location, and notes.
+      </p>
+    </div>
+
+    <%= link_to "Back",
+      inventory_items_path,
+      class: "inline-flex items-center justify-center rounded-md border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:bg-amber-50" %>
+  </div>
 
   <%= render "form", inventory_item: @inventory_item %>
-
-  <%= link_to "Back to inventory", inventory_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

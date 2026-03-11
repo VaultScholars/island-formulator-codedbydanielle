@@ -1,8 +1,11 @@
-<%= form_with(model: inventory_item, class: "contents") do |form| %>
+<%= form_with(model: inventory_item, class: "space-y-6") do |form| %>
+
   <% if inventory_item.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(inventory_item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
+    <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-900">
+      <h2 class="font-semibold">
+        <%= pluralize(inventory_item.errors.count, "error") %> prohibited this item from being saved:
+      </h2>
+      <ul class="mt-2 list-disc pl-5 text-sm text-rose-800">
         <% inventory_item.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -10,58 +13,132 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :ingredient_id, "Which Ingredient?" %>
-    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, 
-        { prompt: "Select an ingredient" }, 
-        { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
+  <div class="rounded-2xl border border-amber-200 bg-rose-50/40 p-6 shadow-sm">
 
-  <div class="my-5">
-    <%= form.label :brand %>
-    <%= form.text_field :brand, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <div class="grid grid-cols-1 gap-6">
 
-  <div class="my-5">
-    <%= form.label :size, "Size (e.g. 500ml, 16oz)" %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+      <!-- Ingredient -->
+      <div>
+        <%= form.label :ingredient_id, "Which Ingredient?",
+          class: "block text-sm font-semibold text-emerald-950" %>
 
-  <div class="my-5">
-    <%= form.label :location, "Where is it stored?" %>
-    <%= form.text_field :location, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+        <%= form.collection_select :ingredient_id,
+          Ingredient.order(:name),
+          :id,
+          :name,
+          { prompt: "Select an ingredient" },
+          {
+            class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700"
+          } %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :purchase_date %>
-    <%= form.date_field :purchase_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+      <!-- Brand -->
+      <div>
+        <%= form.label :brand,
+          class: "block text-sm font-semibold text-emerald-950" %>
 
-  <div class="my-5">
-    <%= form.label :notes %>
-    <%= form.text_area :notes, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+        <%= form.text_field :brand,
+          placeholder: "e.g., Sky Organics",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
 
-  <div class="bg-white shadow p-6 rounded-lg mb-5">
-    <%= form.label :photo, "Photo (receipt or bottle)", class: "block font-bold text-gray-700 mb-2" %>
-    <div class="flex items-center justify-center w-full">
-      <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-          <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-          </svg>
-          <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-          <p class="text-xs text-gray-500">PNG, JPG or GIF</p>
+      <!-- Size -->
+      <div>
+        <%= form.label :size, "Size (e.g. 500ml, 16oz)",
+          class: "block text-sm font-semibold text-emerald-950" %>
+
+        <%= form.text_field :size,
+          placeholder: "e.g., 16oz",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <!-- Location -->
+      <div>
+        <%= form.label :location, "Where is it stored?",
+          class: "block text-sm font-semibold text-emerald-950" %>
+
+        <%= form.text_field :location,
+          placeholder: "e.g., Bathroom shelf, Storage bin",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <!-- Purchase Date -->
+      <div>
+        <%= form.label :purchase_date,
+          class: "block text-sm font-semibold text-emerald-950" %>
+
+        <%= form.date_field :purchase_date,
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <%= form.label :notes,
+          class: "block text-sm font-semibold text-emerald-950" %>
+
+        <%= form.text_area :notes,
+          rows: 4,
+          placeholder: "Add any notes about this purchase...",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <!-- Photo Upload -->
+      <div class="rounded-2xl border border-amber-200 bg-white/80 p-6 shadow-sm">
+
+        <%= form.label :photo, "Photo (receipt or bottle)",
+          class: "block text-sm font-semibold text-emerald-950 mb-3" %>
+
+        <div class="flex items-center justify-center w-full">
+          <label class="flex h-36 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-amber-200 bg-rose-50/40 hover:bg-rose-100 transition">
+
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+
+              <svg class="mb-4 h-8 w-8 text-stone-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5
+                5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5
+                a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+              </svg>
+
+              <p class="mb-2 text-sm text-stone-500">
+                <span class="font-semibold">Click to upload</span> or drag and drop
+              </p>
+
+              <p class="text-xs text-stone-400">
+                PNG, JPG or GIF
+              </p>
+
+            </div>
+
+            <%= form.file_field :photo, accept: "image/*", class: "hidden" %>
+
+          </label>
         </div>
-        <%= form.file_field :photo, accept: "image/*", class: "hidden" %>
-      </label>
+
+        <% if inventory_item.photo.attached? %>
+          <p class="mt-3 text-sm font-medium text-emerald-700">
+            ✓ Current photo: <%= inventory_item.photo.filename %>
+          </p>
+        <% end %>
+
+      </div>
+
     </div>
-    <% if inventory_item.photo.attached? %>
-      <p class="mt-2 text-sm text-green-600">✓ Current photo: <%= inventory_item.photo.filename %></p>
-    <% end %>
+
+    <!-- Footer -->
+    <div class="mt-6 flex items-center justify-between">
+
+      <p class="text-xs text-stone-600">
+        Tip: Track size and location so you always know what’s available.
+      </p>
+
+      <%= form.submit(
+        inventory_item.persisted? ? "Update Inventory Item" : "Create Inventory Item",
+        class: "inline-flex items-center justify-center rounded-md bg-emerald-900 px-5 py-2 text-sm font-semibold text-rose-50 shadow-sm hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-700/40"
+      ) %>
+
+    </div>
+
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
 <% end %>

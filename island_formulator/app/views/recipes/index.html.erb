@@ -7,7 +7,7 @@
         Recipe Builder
       </p>
       <h1 class="mt-2 text-4xl font-extrabold text-emerald-950">
-        My Recipes
+        Recipes
       </h1>
       <p class="mt-2 text-sm text-stone-600">
         Document your formulas, link ingredients, and keep your methods repeatable.
@@ -19,20 +19,20 @@
   </div>
 
   <% if @recipes.empty? %>
-    <div class="rounded-2xl border border-amber-100 bg-rose-50/40 p-10 text-center shadow-sm">
+    <div class="rounded-2xl border border-amber-300 bg-rose-50/40 p-10 text-center shadow-sm">
       <p class="text-stone-600 mb-4">You haven’t created any recipes yet.</p>
 
       <%= link_to "Create Your First Recipe", new_recipe_path,
-        class: "inline-flex items-center justify-center rounded-md border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-amber-50 transition" %>
+        class: "inline-flex items-center justify-center rounded-md border border-amber-300 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-amber-50 transition" %>
     </div>
   <% else %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @recipes.each do |recipe| %>
-        <div class="rounded-2xl border border-amber-100 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+        <div class="rounded-2xl border border-amber-200 bg-rose-50 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
           <% if recipe.photo.attached? %>
             <%= image_tag recipe.photo, class: "w-full h-48 object-cover" %>
           <% else %>
-            <div class="w-full h-48 bg-rose-50/60 flex items-center justify-center text-stone-400">
+            <div class="w-full h-48 bg-white/80 backdrop-blur-sm flex items-center justify-center text-stone-400">
               No photo
             </div>
           <% end %>
@@ -51,7 +51,7 @@
               <%= pluralize(recipe.ingredients.count, "item") %>
             </p>
 
-            <div class="mt-4 pt-4 border-t border-amber-100 flex items-center justify-between">
+            <div class="mt-4 pt-4 border-t border-amber-200 flex items-center justify-between">
               <%= link_to "View Details", recipe,
                 class: "text-emerald-800 font-semibold hover:text-emerald-950 transition-colors" %>
 
