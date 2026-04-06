@@ -23,6 +23,10 @@ class Recipe < ApplicationRecord
   
   # Ensure a recipe has at least one ingredient
   validate :must_have_at_least_one_ingredient
+
+  def total_estimated_cost
+    recipe_ingredients.sum { |ri| ri.estimated_cost.to_f }
+  end
   
   private
   
