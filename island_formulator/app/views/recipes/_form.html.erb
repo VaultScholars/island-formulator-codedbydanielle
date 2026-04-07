@@ -113,6 +113,23 @@
                         placeholder: "e.g., 50g",
                         class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
                 </div>
+
+              <div class="w-full md:w-40">
+                <%= ri_form.label :amount_value, "Amount", class: "block text-sm font-semibold text-emerald-950" %>
+                <%= ri_form.number_field :amount_value,
+                  step: "0.01",
+                  placeholder: "e.g. 50",
+                  class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+              </div>
+
+              <div class="w-full md:w-32">
+                <%= ri_form.label :amount_unit, "Unit", class: "block text-sm font-semibold text-emerald-950" %>
+                <%= ri_form.select :amount_unit,
+                  options_for_select([["ml", "ml"], ["g", "g"]], ri_form.object.amount_unit),
+                  { prompt: "Unit" },
+                  class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+              </div>
+
               </div>
 
               <%# Only show remove checkbox when editing an existing recipe_ingredient %>

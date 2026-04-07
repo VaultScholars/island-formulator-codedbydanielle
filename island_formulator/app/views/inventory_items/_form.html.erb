@@ -42,15 +42,7 @@
           class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
       </div>
 
-      <!-- Size -->
-      <div>
-        <%= form.label :size, "Size (e.g. 500ml, 16oz)",
-          class: "block text-sm font-semibold text-emerald-950" %>
-
-        <%= form.text_field :size,
-          placeholder: "e.g., 16oz",
-          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
-      </div>
+     
 
       <!-- Location -->
       <div>
@@ -68,6 +60,31 @@
           class: "block text-sm font-semibold text-emerald-950" %>
 
         <%= form.date_field :purchase_date,
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <!-- Cost Calculator -->
+      <div>
+        <%= form.label :cost, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.number_field :cost,
+          step: "0.01",
+          placeholder: "e.g., 12.99",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <div>
+        <%= form.label :unit_size, "Container Size", class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.number_field :unit_size,
+          step: "0.01",
+          placeholder: "e.g., 500",
+          class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
+      </div>
+
+      <div>
+        <%= form.label :unit, class: "block text-sm font-semibold text-emerald-950" %>
+        <%= form.select :unit,
+          options_for_select([["ml", "ml"], ["g", "g"]], inventory_item.unit),
+          { prompt: "Select unit" },
           class: "mt-2 block w-full rounded-md border border-amber-100 bg-white/80 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/30 focus:border-emerald-700" %>
       </div>
 

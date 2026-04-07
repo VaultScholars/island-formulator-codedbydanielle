@@ -48,6 +48,6 @@ class InventoryItemsController < ApplicationController
   end
 
   def inventory_item_params
-    params.require(:inventory_item).permit(:ingredient_id, :brand, :size, :location, :purchase_date, :notes, :photo)
+    params.require(:inventory_item).permit(:ingredient_id, :brand, :size, :location, :purchase_date, :notes, :photo, :cost, :unit_size, :unit)
   end
 end
