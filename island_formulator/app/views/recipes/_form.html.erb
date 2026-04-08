@@ -99,7 +99,7 @@
               <div class="md:col-span-2">
                 <%= ri_form.label :ingredient_id, "Ingredient", class: "block text-sm font-semibold text-emerald-950" %>
                 <%= ri_form.collection_select :ingredient_id,
-                      Ingredient.order(:name),
+                      Current.user.ingredients.order(:name),
                       :id,
                       :name,
                       { prompt: "Select Ingredient" },
