@@ -12,7 +12,7 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients/new
   def new
-    @ingredient = Current.user.Ingredient.new
+    @ingredient = Current.user.ingredients.new
   end
 
   # GET /ingredients/1/edit
