@@ -11,69 +11,79 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-<<main class="container mx-auto mt-28 px-5 flex flex-col">
-  <nav class="mb-10 rounded-2xl border border-amber-100 bg-gradient-to-br from-emerald-100 via-green-50 to-emerald-200/70 px-6 py-4 shadow-sm">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6">
-    <!-- Left side -->
-    <div class="flex items-center gap-8">
-      <%= link_to root_path, class: "text-2xl font-extrabold tracking-tight text-emerald-950 hover:text-emerald-800 transition-colors" do %>
-        Island Formulator
-      <% end %>
+    <!-- 🌿 LIGHT GLOBAL BACKGROUND -->
+    <div class="relative min-h-screen bg-gradient-to-br from-white via-rose-50/60 to-emerald-50/60">
 
-      <% if authenticated? %>
-        <div class="hidden md:flex items-center gap-2">
-          <%= link_to "Dashboard", root_path,
-                class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(root_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+      <!-- ✨ Soft glow (very subtle) -->
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.04),transparent_50%)]"></div>
 
-          <%= link_to "My Recipes", recipes_path,
-                class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(recipes_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+      <!-- MAIN CONTENT -->
+      <main class="relative z-10 container mx-auto mt-28 px-5 flex flex-col">
 
-          <%= link_to "Inventory", inventory_items_path,
-                class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(inventory_items_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+        <!-- NAVBAR -->
+        <nav class="mb-10 rounded-2xl border border-amber-100 bg-gradient-to-br from-emerald-100 via-green-50 to-emerald-200/70 px-6 py-4 shadow-sm">
+          <div class="mx-auto flex max-w-7xl items-center justify-between gap-6">
 
-          <%= link_to "Batches", batches_path,
-                class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(batches_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+            <!-- LEFT -->
+            <div class="flex items-center gap-8">
+              <%= link_to root_path, class: "text-2xl font-extrabold tracking-tight text-emerald-950 hover:text-emerald-800 transition-colors" do %>
+                Island Formulator
+              <% end %>
 
-          <%= link_to "My Ingredients", ingredients_path,
-                class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(ingredients_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
-        </div>
-      <% end %>
+              <% if authenticated? %>
+                <div class="hidden md:flex items-center gap-2">
+                  <%= link_to "Dashboard", root_path,
+                        class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(root_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+
+                  <%= link_to "My Recipes", recipes_path,
+                        class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(recipes_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+
+                  <%= link_to "Inventory", inventory_items_path,
+                        class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(inventory_items_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+
+                  <%= link_to "Batches", batches_path,
+                        class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(batches_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+
+                  <%= link_to "My Ingredients", ingredients_path,
+                        class: "rounded-full px-4 py-2 text-base font-semibold transition #{current_page?(ingredients_path) ? 'bg-emerald-900 text-rose-50 shadow-sm' : 'text-stone-700 hover:bg-amber-50 hover:text-emerald-900'}" %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="flex items-center gap-4">
+              <% if authenticated? %>
+                <span class="hidden lg:inline text-sm font-medium text-stone-500">
+                  <%= Current.user.email_address %>
+                </span>
+
+                <%= button_to "Logout", session_path, method: :delete,
+                      class: "rounded-full px-4 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50 hover:text-rose-800 transition" %>
+              <% else %>
+                <%= link_to "Sign Up", new_user_path,
+                      class: "rounded-full bg-emerald-900 px-4 py-2 text-sm font-semibold text-rose-50 shadow-sm hover:bg-emerald-800 transition" %>
+
+                <%= link_to "Login", new_session_path,
+                      class: "rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:bg-amber-50 transition" %>
+              <% end %>
+            </div>
+
+          </div>
+        </nav>
+
+        <!-- PAGE CONTENT -->
+        <%= yield %>
+
+      </main>
     </div>
-
-    <!-- Right side -->
-    <div class="flex items-center gap-4">
-      <% if authenticated? %>
-        <span class="hidden lg:inline text-sm font-medium text-stone-500">
-          <%= Current.user.email_address %>
-        </span>
-
-        <%= button_to "Logout", session_path, method: :delete,
-              class: "rounded-full px-4 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50 hover:text-rose-800 transition" %>
-      <% else %>
-        <%= link_to "Sign Up", new_user_path,
-              class: "rounded-full bg-emerald-900 px-4 py-2 text-sm font-semibold text-rose-50 shadow-sm hover:bg-emerald-800 transition" %>
-
-        <%= link_to "Login", new_session_path,
-              class: "rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 hover:bg-amber-50 transition" %>
-      <% end %>
-    </div>
-  </div>
-</nav>
-
-  <%= yield %>
-</main>
   </body>
 </html>
