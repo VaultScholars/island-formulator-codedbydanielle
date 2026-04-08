@@ -12,7 +12,7 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients/new
   def new
-    @ingredient = Ingredient.new
+    @ingredient = Current.user.Ingredient.new
   end
 
   # GET /ingredients/1/edit
@@ -65,6 +65,6 @@ class IngredientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ingredient_params
-  params.require(:ingredient).permit(:name, :category, :description, :photo)
+  params.require(:ingredient).permit(:name, :category, :description, :notes, :photo, tag_ids: [])
     end
 end
