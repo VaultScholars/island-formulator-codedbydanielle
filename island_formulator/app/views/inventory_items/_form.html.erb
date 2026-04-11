@@ -23,7 +23,7 @@
           class: "block text-sm font-semibold text-emerald-950" %>
 
         <%= form.collection_select :ingredient_id,
-          Ingredient.order(:name),
+          Current.user.ingredients.order(:name),
           :id,
           :name,
           { prompt: "Select an ingredient" },

@@ -30,7 +30,12 @@
           Size
         </p>
         <p class="text-lg font-medium text-stone-700">
-          <%= @inventory_item.size.presence || "Not specified" %>
+          <% if @inventory_item.unit_size.present? && @inventory_item.unit.present? %>
+          <%= @inventory_item.unit_size %> <%= @inventory_item.unit %>
+        <% else %>
+          Not specified
+        <% end %>
+      </p>
         </p>
       </div>
 
