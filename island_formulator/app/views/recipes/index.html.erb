@@ -1,69 +1,79 @@
 <% content_for :title, "My Recipes" %>
 
-  <div class="relative z-10 mx-auto w-full max-w-6xl px-5 py-10">
-    <div class="mb-8 flex items-start justify-between gap-4">
-      <div>
-        <p class="text-sm font-semibold tracking-wide text-emerald-900/80 uppercase">
-          Recipe Builder
-        </p>
-        <h1 class="mt-2 text-4xl font-extrabold text-emerald-950">
-          Recipes
-        </h1>
-        <p class="mt-2 text-sm text-stone-600">
-          Document your formulas, link ingredients, and keep your methods repeatable.
-        </p>
-      </div>
-
-      <%= link_to "New Recipe", new_recipe_path,
-        class: "bg-emerald-900 hover:bg-emerald-800 text-rose-50 font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200" %>
+<div class="relative z-10 mx-auto w-full max-w-6xl px-5 py-10">
+  <div class="mb-8 flex items-start justify-between gap-4">
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-emerald-900/80 uppercase">
+        Recipe Builder
+      </p>
+      <h1 class="mt-2 text-4xl font-extrabold text-emerald-950">
+        Recipes
+      </h1>
+      <p class="mt-2 text-sm text-stone-600">
+        Document your formulas, link ingredients, and keep your methods repeatable.
+      </p>
     </div>
 
-    <% if @recipes.empty? %>
-      <div class="rounded-2xl border border-amber-300 bg-rose-50/40 p-10 text-center shadow-sm">
-        <p class="mb-4 text-stone-600">You haven’t created any recipes yet.</p>
+    <%= link_to "New Recipe", new_recipe_path,
+      class: "bg-emerald-900 hover:bg-emerald-800 text-rose-50 font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200" %>
+  </div>
 
-        <%= link_to "Create Your First Recipe", new_recipe_path,
-          class: "inline-flex items-center justify-center rounded-md border border-amber-300 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-amber-50 transition" %>
-      </div>
-    <% else %>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <% @recipes.each do |recipe| %>
-          <div class="overflow-hidden rounded-2xl border border-amber-200 bg-rose-50 shadow-sm hover:shadow-md transition-shadow">
-            <% if recipe.photo.attached? %>
-              <%= image_tag recipe.photo, class: "h-48 w-full object-cover" %>
-            <% else %>
-              <div class="flex h-48 w-full items-center justify-center bg-white/80 backdrop-blur-sm text-stone-400">
-                No photo
-              </div>
-            <% end %>
+  <% if @recipes.empty? %>
+    <div class="rounded-2xl border border-amber-300 bg-rose-50/40 p-10 text-center shadow-sm">
+      <p class="mb-4 text-stone-600">You haven’t created any recipes yet.</p>
 
-            <div class="p-5">
-              <h2 class="mb-2 text-xl font-extrabold">
-                <%= link_to recipe.title, recipe,
-                  class: "text-emerald-950 hover:text-emerald-800 transition-colors" %>
-              </h2>
+      <%= link_to "Create Your First Recipe", new_recipe_path,
+        class: "inline-flex items-center justify-center rounded-md border border-amber-300 bg-white px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-amber-50 transition" %>
+    </div>
+  <% else %>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% @recipes.each do |recipe| %>
+        <div class="overflow-hidden rounded-2xl border border-amber-200 bg-rose-50 shadow-sm hover:shadow-md transition-shadow">
+          <% if recipe.photo.attached? %>
+            <%= image_tag recipe.photo, class: "h-48 w-full object-cover" %>
+          <% else %>
+            <div class="flex h-48 w-full items-center justify-center bg-white/80 backdrop-blur-sm text-stone-400">
+              No photo
+            </div>
+          <% end %>
 
-              <span class="inline-block rounded-full border border-emerald-200 bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-900">
-                <%= recipe.product_type %>
+          <div class="p-5">
+            <h2 class="mb-2 text-xl font-extrabold">
+              <%= link_to recipe.title, recipe,
+                class: "text-emerald-950 hover:text-emerald-800 transition-colors" %>
+            </h2>
+
+            <span class="inline-block rounded-full border border-emerald-200 bg-emerald-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-900">
+              <%= recipe.product_type %>
+            </span>
+
+            <p class="mt-3 text-sm text-stone-600">
+              <span class="font-semibold text-emerald-950">Ingredients:</span>
+              <%= pluralize(recipe.ingredients.count, "item") %>
+            </p>
+
+              <% if recipe.respond_to?(:total_estimated_cost) %>
+                <div class="mt-4 flex justify-center">
+                  <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-900 shadow-sm">
+                    <span>Estimated Cost:</span>
+                    <span class="font-extrabold text-emerald-950">
+                      $<%= sprintf("%.2f", recipe.total_estimated_cost || 0) %>
+                    </span>
+                  </div>
+                </div>
+              <% end %>
+
+            <div class="mt-4 flex items-center justify-between border-t border-amber-200 pt-4">
+              <%= link_to "View Details", recipe,
+                class: "font-semibold text-emerald-800 hover:text-emerald-950 transition-colors" %>
+
+              <span class="text-xs text-stone-400">
+                #<%= recipe.id %>
               </span>
-
-              <p class="mt-3 text-sm text-stone-600">
-                <span class="font-semibold text-emerald-950">Ingredients:</span>
-                <%= pluralize(recipe.ingredients.count, "item") %>
-              </p>
-
-              <div class="mt-4 flex items-center justify-between border-t border-amber-200 pt-4">
-                <%= link_to "View Details", recipe,
-                  class: "font-semibold text-emerald-800 hover:text-emerald-950 transition-colors" %>
-
-                <span class="text-xs text-stone-400">
-                  #<%= recipe.id %>
-                </span>
-              </div>
             </div>
           </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
